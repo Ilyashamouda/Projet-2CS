@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>La Liste de Fournisseurs</title>
+  <style>
+    body {
+      background-color: #F2F2F2;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #317B22;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #E6E6E6;
+      color: #333;
+      padding: 10px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
+
+    li:hover {
+      background-color: #317B22;
+      color: #FFF;
+    }
+
+    .item-details {
+      background-color: #FFF;
+      border: 1px solid #CCC;
+      padding: 10px;
+      display: none;
+    }
+
+    .item-details strong {
+      display: block;
+    }
+
+    .item-details span {
+      display: block;
+    }
+
+    .item-details span:nth-child(2) {
+      margin-top: 5px;
+    }
+
+    .add-item-form {
+      display: flex;
+      align-items: center;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #FFF;
+      border: 1px solid #CCC;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-item-form input[type="text"] {
+      margin-right: 10px;
+    }
+
+    .add-item-form button {
+      background-color: #317B22;
+      color: #FFF;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-item-form button:hover {
+      background-color: #4CAF50;
+    }
+
+    .modifier-button {
+      background-color: #317B22;
+      color: #FFF;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+    }
+
+    .modifier-button:hover {
+      background-color: #4CAF50;
+    }
+  </style>
+  <script>
+    function showDetails(item) {
+      var detailsDiv = document.getElementById("details-" + item);
+      if (detailsDiv.style.display === "none") {
+        detailsDiv.style.display = "block";
+      } else {
+        detailsDiv.style.display = "none";
+      }
+    }
+
+    function addItem() {
+      var title = document.getElementById("item-name").value;
+      var category = document.getElementById("item-category").value;
+      var newItemId = "fournisseur" + (document.querySelectorAll("li").length + 1);
+      var newItem = document.createElement("li");
+      newItem.setAttribute("onclick", "showDetails('" + newItemId + "')");
+      newItem.innerHTML = title +
+        '<div class="item-details" id="details-' + newItemId + '">' +
+        '<strong>4011: ' + category + '</strong>' +
+        '<span>Creance = 21000 DA</span>' +
+        '<span>Dettes = 12000 DA</span>' +
+        '</div>';
+
+      document.getElementById("supplier-list").appendChild(newItem);
+      document.getElementById("item-name").value = "";
+      document.getElementById("item-category").value = "";
+    }
+
+    function modifySupplier() {
+      // Modify the functionality of the "Modifier Fournisseur" button here
+      alert("Modifier Fournisseur clicked!");
+    }
+  </script>
+</head>
+<body>
+  <h1>La Liste de Fournisseurs</h1>
+  <ul id="supplier-list">
+    <li onclick="showDetails('fournisseur1')">
+      Fournisseur 1
+      <div class="item-details" id="details-fournisseur1">
+        <strong>4011: Fournisseurs Sonaric</strong>
+        <span>Creance = 21000 DA</span>
+        <span>Dettes = 12000 DA</span>
+      </div>
+    </li>
+    <li onclick="showDetails('fournisseur2')">
+      Fournisseur 2
+      <div class="item-details" id="details-fournisseur2">
+        <strong>4011: Fournisseurs Sonaric</strong>
+        <span>Creance = 21000 DA</span>
+        <span>Dettes = 12000 DA</span>
+      </div>
+    </li>
+    <li onclick="showDetails('fournisseur3')">
+      Fournisseur 3
+      <div class="item-details" id="details-fournisseur3">
+        <strong>4011: Fournisseurs Sonaric</strong>
+        <span>Creance = 21000 DA</span>
+        <span>Dettes = 12000 DA</span>
+      </div>
+    </li>
+    <li onclick="showDetails('fournisseur4')">
+      Fournisseur 4
+      <div class="item-details" id="details-fournisseur4">
+        <strong>4011: Fournisseurs Sonaric</strong>
+        <span>Creance = 21000 DA</span>
+        <span>Dettes = 12000 DA</span>
+      </div>
+    </li>
+    <li onclick="showDetails('fournisseur5')">
+      Fournisseur 5
+      <div class="item-details" id="details-fournisseur5">
+        <strong>4011: Fournisseurs Sonaric</strong>
+        <span>Creance = 21000 DA</span>
+        <span>Dettes = 12000 DA</span>
+      </div>
+    </li>
+  </ul>
+  <div class="add-item-form">
+    <input type="text" id="item-name" placeholder="Nom et prenom">
+    <input type="text" id="item-category" placeholder="Categorie (Hamiz / Sonaric)">
+    <button onclick="addItem()">Ajouter fournisseur</button>
+    <button class="modifier-button" onclick="modifySupplier()">Modifier Fournisseur</button>
+  </div>
+</body>
+</html>
