@@ -6,16 +6,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bilan</title>
   <link href="bootstrap-5.3.0-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="styles.css">
+
   <style>
+
+li.button {
+  margin-left: auto;
+}
+    li:hover {
+  font-size: 18px;
+}
+    
+    li {
+  margin-right: 50px; /* Add some spacing between list items */
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+}
+    ul {
+  list-style: none;
+  display: flex; /* Display items in a flex container */
+  padding: 0;
+  margin-left: 50px;
+  margin-top: 10px;
+}
+    li.nav_element {
+  margin-top: 10px;
+}
+    a {
+  text-decoration: none;
+  color: white;
+}
+
+a.button {
+  color: rgba(73, 159, 104, 0.7);
+  font-size: 15px;
+}
+
+    .container_top {
+  display: flex;
+  flex-direction: column;
+}
+
     .flex-row {
       display: flex;
       justify-content: space-between;
     }
+    .container_accueil {
+  background-color: rgba(73, 159, 104, 0.7);
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+button {
+  margin-left: auto;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  padding: 10px;
+  padding-inline: 10px;
+}
   </style>  
 </head>
 
-<body class="p-xl-4">
+<body class="px-xl-4">
+  <div class="container_accueil">
+    <div class="container_top">
+      <ul>
+      <li class ="nav_element"> <a href="Accueil.html"> Accueil </a> </li>
+      <li class ="nav_element"> <a href="Operations/html/Operation.html"> Opérations </a> </li>
+      <li class ="nav_element"> <a href="journal.html"> Journal </a> </li>
+      <li class ="nav_element"> <a href="bilan.html"> Bilan </a> </li>
+      <li class ="nav_element"> <a href=""> Comptes </a> </li>
+      <li class="button"> <button type="submit"> <a href="Login.html" class="button"> Se déconnecter </a> </button> </li>
+      </ul>
+    </div>
+  </div>
   
   <div class="container">
     <div class="flex-row">
