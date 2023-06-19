@@ -25,71 +25,62 @@
         </div>
     </div>
 
-    <div style="display: flex;">
-        
-        <div class="Montant-cont"> 
-            <input type="number" id="Montant" name="Montant" class="Montant" >
-        </div>
-        <div  >
-            <button type="button" class="button">Ajouter</button>
-        </div>
+    <div style="display: flex;" id="addSub">
+      <div class="Montant-cont"> 
+        <input type="number" id="montant" name="Montant" class="Montant" >
+      </div>
+      <div>
+        <button type="button" class="button" id="btn">Ajouter</button>
+      </div>
     </div>
  
      <div class="content">
-        
-        
-
         <div class="header">
-         <div class="cards-list">
-  
-            <div class="card 1">
-              <div class="card_title title-black">
-                <p>Subvention N°1</p>
-              </div>
-              <div class="monant-sub">
-                <p>3000000 DA</p>
-              </div>
-              
-            </div>
-            <div class="card 1">
-                <div class="card_title title-black">
-                  <p>Subvention N°2</p>
-                </div>
-                <div class="monant-sub">
-                    <p>3000000 DA</p>
-                </div>
-                
-              </div>
-              <div class="card 1">
-                <div class="card_title title-black">
-                  <p>Subvention N°3</p>
-                </div>
-                <div class="monant-sub">
-                    <p>3000000 DA</p>
-                </div>
-                
-              </div>
-              <div class="card 1">
-                <div class="card_title title-black">
-                  <p>Subvention N°4</p>
-                </div>
-                <div class="monant-sub">
-                    <p>3000000 DA</p>
-                </div>
-               
-              </div>
-            
-            
-         
-            
-            </div>
+         <div class="cards-list" id="list"></div>
         </div>
-        
      </div>
 
+  <script>
+    const email = localStorage.getItem("email");
 
+    if (email == "cos@esi.dz") {
+      document.getElementById("addSub").innerHTML = ""
+    }
 
+    fetch("http://127.0.0.1:3000/subventions")
+      .then((response) => response.json())
+      .then((data) => {
+        let listSalarie = "";
+        
+        data.forEach(e => {
+          listSalarie += `
+            <div class="card">
+              <div class="card_title title-black">
+                <p>Subvention N°${e.id}</p>
+              </div>
+              <div class="monant-sub">
+                <p>${e.montant} DA</p>
+              </div>
+            </div>
+          `
+        });
+        
+        document.getElementById("list").innerHTML = listSalarie;
+      });
 
+      document.getElementById("btn").addEventListener("click", e => {
+        fetch("http://127.0.0.1:3000/subventions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ montant: parseInt(document.getElementById("montant").value) }),
+        }).then((response) => {});
 
+        var link = document.createElement('a');
+        link.href = 'Subvention.html';
+        link.click();
+      });
+  </script>
 </body>
 </html>
