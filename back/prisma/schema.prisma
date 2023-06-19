@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Fournisseur {
+  id                Int                @id @default(autoincrement())
+  nom               String
+  CompteFournisseur CompteFournisseur?
+}
+
+model CompteFournisseur {
+  auxiliaire    Int         @id @default(autoincrement())
+  fournisseur   Fournisseur @relation(fields: [fournisseurId], references: [id])
+  fournisseurId Int         @unique
+  dettes        Float       @default(0)
+  Achat         Achat[]
+}
+
+model Achat {
+  id                Int               @id @default(autoincrement())
+  date              DateTime          @default(now())
+  montant           Float             @default(0)
+  salarie           Compte            @relation(fields: [compteSalarie], references: [auxiliaire])
+  compteSalarie     Int
+  fournisseur       CompteFournisseur @relation(fields: [compteFournisseur], references: [auxiliaire])
+  compteFournisseur Int
+  Recuperation      Recuperation[]
+}
+
+model Recuperation {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @default(now())
+  montant Float    @default(0)
+  achat   Achat    @relation(fields: [achatId], references: [id])
+  achatId Int
+}
+
+model Salarie {
+  id     Int     @id @default(autoincrement())
+  nom    String
+  prenom String
+  Compte Compte?
+}
+
+model Compte {
+  auxiliaire     Int     @id @default(autoincrement())
+  salarie        Salarie @relation(fields: [salarieId], references: [id])
+  salarieId      Int     @unique
+  creances_prets Float   @default(0)
+  creances_em    Float   @default(0)
+  dettes_prets   Float   @default(0)
+  dettes_don     Float   @default(0)
+  dettes_em      Float   @default(0)
+  Pret           Pret[]
+  Don            Don[]
+  RSS            RSS[]
+  Achat          Achat[]
+}
+
+model Subvension {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @default(now())
+  montant Float    @default(0)
+}
+
+model Pret {
+  id            Int      @id @default(autoincrement())
+  date          DateTime @default(now())
+  montant       Float    @default(0)
+  salarie       Compte   @relation(fields: [compteSalarie], references: [auxiliaire])
+  compteSalarie Int
+}
+
+model Don {
+  id            Int      @id @default(autoincrement())
+  date          DateTime @default(now())
+  montant       Float    @default(0)
+  salarie       Compte   @relation(fields: [compteSalarie], references: [auxiliaire])
+  compteSalarie Int
+}
+
+model RSS {
+  id            Int      @id @default(autoincrement())
+  date          DateTime @default(now())
+  montant       Float    @default(0)
+  salarie       Compte   @relation(fields: [compteSalarie], references: [auxiliaire])
+  compteSalarie Int
+}

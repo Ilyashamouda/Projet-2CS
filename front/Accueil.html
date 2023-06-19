@@ -23,10 +23,22 @@
 		<h1 class="t1"> Votre solde est de </h1>
 	</div>
 	<div class="container_2">
-		<h1 class="t2"> X DA </h1>
-		<h2> Total créances : Y DA</h2>
-		<h2> Total dettes : Z DA</h2>
+		<h1 class="t2" id="solde"> X DA </h1>
+		<h2 id="creances"> Total créances : Y DA</h2>
+		<h2 id="dettes"> Total dettes : Z DA</h2>
 	</div>
+
+	<script>
+		fetch("http://127.0.0.1:3000/")
+			.then((response) => response.json())
+			.then((data) => {
+				const { solde, creances, dettes } = data;
+				document.getElementById("solde").innerText = `${solde} DA`;
+				document.getElementById("creances").innerText = ` Total créances : ${creances} DA`;
+				document.getElementById("dettes").innerText = ` Total dettes : ${dettes} DA`;
+			});
+
+	</script>
 
 
 </body>
