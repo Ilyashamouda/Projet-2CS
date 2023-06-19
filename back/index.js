@@ -12,6 +12,7 @@ app.use("/dons", require("./src/routes/dons"));
 app.use("/fournisseurs", require("./src/routes/fournisseurs"));
 app.use("/subventions", require("./src/routes/subventions"));
 app.use("/rss", require("./src/routes/rss"));
+app.use("/prets", require("./src/routes/prets"));
 
 // Start the server
 app.listen(3000, async () => {

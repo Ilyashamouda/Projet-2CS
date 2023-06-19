@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Prets</title>
+    <link rel="stylesheet" href="../css/Fournisseur.css">
+    <link rel="stylesheet" type="text/css" href="../../Accueil.css">
+  </head>
+  <body>
+    <div class="btn">
+      <span class="fas fa-bars"></span>
+    </div>
+    <div class="container">
+      <div class="container_top">
+        <ul>
+          <li class ="nav_element"> <a href="../../Accueil.html"> Accueil </a> </li>
+          <li class ="nav_element"> <a href="Operation.html"> Opérations </a> </li>
+          <li class ="nav_element"> <a href="../../journal.html"> Journal </a> </li>
+          <li class ="nav_element"> <a href="../../compte.html"> Comptes </a> </li>
+          <li class="button"> <button type="submit"> <a href="../../Login.html" class="button"> Se déconnecter </a> </button> </li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="content">
+      <button type="button" class="button" id="paiement">Paiement</button>
+      <div class="header">
+        <div class="cards-list" id="list">
+        </div>
+      </div>    
+    </div>
+
+    <script>
+      const checkList = () => {
+        let cards = document.querySelectorAll(".card");
+
+        let checkedComptes = []
+
+        cards.forEach((card) => {
+          const checkValue = card.children[0].checked;
+          const compteId = card.children[1].getElementsByTagName("span")[0].innerText;
+          const montant = card.children[2].getElementsByTagName("input")[0].value;
+
+          checkedComptes.push({compteId, checkValue, montant})
+        });
+
+        return checkedComptes;
+      };
+
+      const email = localStorage.getItem("email");
+
+      if (email == "cos@esi.dz") {
+        fetch("http://127.0.0.1:3000/prets/cos")
+			    .then((response) => response.json())
+			    .then((data) => {
+            let listSalarie = "";
+            
+            data.forEach(e => {
+              listSalarie += `
+                <div class="card">
+                  <input type="checkbox" name="Paiement" class="checkbox">
+                  <div class="card_title title-black">
+                    <p><span>${e.auxiliaire}</span> - ${e.salarie.nom} ${e.salarie.prenom}</p>
+                  </div>
+                  <div class="Montant-cont"> 
+                    <input type="number" name="Montant" class="Montant" value="0" >
+                  </div>
+                </div>
+              `
+            });
+				    
+				    document.getElementById("list").innerHTML = listSalarie;
+
+            document.getElementById("paiement").addEventListener("click", e => {
+              fetch("http://127.0.0.1:3000/prets/cos", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(checkList()),
+              }).then((response) => {});
+
+              var link = document.createElement('a');
+              link.href = 'Prets.html';
+              link.click();
+            });
+			    });
+        
+      } else if (email == "comptable@esi.dz") {
+        fetch("http://127.0.0.1:3000/prets/esi")
+			    .then((response) => response.json())
+			    .then((data) => {
+            let listSalarie = "";
+            
+            data.forEach(e => {
+            listSalarie += `
+                <div class="card">
+                <input type="checkbox" name="Paiement" class="checkbox">
+                <div class="card_title title-black">
+                    <p><span>${e.auxiliaire}</span> - ${e.salarie.nom} ${e.salarie.prenom}</p>
+                </div>
+                <div class="Montant-cont"> 
+                    <input type="number" name="Montant" class="Montant" value="${e.dettes_prets}">
+                </div>
+                </div>
+            `
+            });
+                            
+            document.getElementById("list").innerHTML = listSalarie;
+
+            document.getElementById("paiement").addEventListener("click", e => {
+            fetch("http://127.0.0.1:3000/prets/esi", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(checkList()),
+            }).then((response) => {});
+
+            var link = document.createElement('a');
+            link.href = 'Prets.html';
+            link.click();
+            });
+			    });
+      }
+      
+    </script>
+
+  </body>
+</html>
