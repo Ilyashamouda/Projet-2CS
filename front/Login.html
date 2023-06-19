@@ -12,15 +12,37 @@
 		<h1 class="ligne_2">Financière</h1>
 		<form action="action_page.php" method="post">
  			 <div class="container">
-   			 <label for="uname">E-mail</label>
-    		<input type="text" placeholder="Entrer votre e-mail" name="uname" >
+   			 <label for="uname">Email</label>
+    		<input type="text" placeholder="Entrer votre e-mail" name="uname" id="email">
 
     		<label for="psw">Mot de passe</label>
     		<input type="password" placeholder="Entrer votre mot de passe" name="psw" >
 
-   			<button type="submit"><a href="Accueil.html"> Se connecter </a></button>
+   			<button type="submit" id="submit"> Se connecter</button>
   			</div>
 		</form>
 	</div>
+
+	<script>
+		document.getElementById("submit").addEventListener("click", (e) => {
+			e.preventDefault()
+
+			if (document.getElementById("email").value == "cos@esi.dz") {
+				localStorage.setItem("email", "cos@esi.dz");
+				
+				var link = document.createElement('a');
+				link.href = 'Accueil.html';
+				link.click();
+			} else if (document.getElementById("email").value == "comptable@esi.dz") {
+				localStorage.setItem("email", "comptable@esi.dz");
+
+				var link = document.createElement('a');
+				link.href = 'Accueil.html';
+				link.click();
+			} else {
+				alert("Email / mot de passe incorrect");
+			}
+		});
+	</script>
 </body>
 </html>
