@@ -3,21 +3,20 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-router.get("/cos", async (req, res) => {
-  const salaries = await prisma.compte.findMany({
-    select: {
-      auxiliaire: true,
-      salarie: {
-        select: {
-          nom: true,
-          prenom: true,
-        },
-      },
-      //   dettes_don: true,
-    },
+router.get("/", async (req, res) => {
+  const subventions = await prisma.subvension.findMany();
+
+  res.json(subventions);
+});
+
+router.post("/", async (req, res) => {
+  const { montant } = req.body;
+
+  const subvention = await prisma.subvension.create({
+    data: { montant: montant },
   });
 
-  res.json(salaries);
+  res.json(subvention);
 });
 
 module.exports = router;
