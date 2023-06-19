@@ -8,6 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", require("./src/routes/acceuil"));
+app.use("/dons", require("./src/routes/dons"));
+app.use("/fournisseurs", require("./src/routes/fournisseurs"));
+app.use("/subventions", require("./src/routes/subventions"));
 
 // Start the server
 app.listen(3000, async () => {
