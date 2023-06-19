@@ -39,6 +39,12 @@
 				var link = document.createElement('a');
 				link.href = 'Accueil.html';
 				link.click();
+			} else if (document.getElementById("email").value == "cac@esi.dz") {
+				localStorage.setItem("email", "cac@esi.dz");
+
+				var link = document.createElement('a');
+				link.href = 'journal_cac.html';
+				link.click();
 			} else {
 				alert("Email / mot de passe incorrect");
 			}
